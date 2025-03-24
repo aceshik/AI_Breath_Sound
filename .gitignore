@@ -1,0 +1,9 @@
+# 데이터 제외
+data/
+
+# 캐시/시스템 파일
+__pycache__/
+*.pyc
+
+# Jupyter 체크포인트
+.ipynb_checkpoints/
