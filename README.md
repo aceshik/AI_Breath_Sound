@@ -1,6 +1,6 @@
- # Development of an AI-based respiratory analysis system
-
-## AI 기반 호흡 분석 시스템 개발
+ # AI 기반 호흡 분석 시스템 개발
+## Development of an AI-based respiratory analysis system
+### 김문종, 원영식, 최정연
 
 ### 구조
 
