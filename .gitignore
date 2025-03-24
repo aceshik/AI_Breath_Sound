@@ -1,5 +1,9 @@
-# 데이터 제외
-data/
+# 무거운 데이터 제외
+data/raw_audio/
+data/processed/
+data/segments/*.wav
+data/segments/X.npy
+data/segments/y.npy
 
 # 캐시/시스템 파일
 __pycache__/
