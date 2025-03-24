@@ -4,6 +4,7 @@
 
 ### 구조
 
+```bash
 AI_Breath_Sound/
 ├── data/
 │   ├── raw_audio/         # 원본 ICBHI 오디오 파일
@@ -17,7 +18,7 @@ AI_Breath_Sound/
 │   ├── parse_icbhi_labels.py  # .txt → .csv 라벨 정리
 │   ├── split_segments.py      # 호흡 단위로 오디오 분할
 │   └── extract_features.py    # MFCC 특징 추출
-
+```
 
 ### 현재까지 구현
 
