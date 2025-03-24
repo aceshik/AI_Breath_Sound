@@ -32,11 +32,6 @@ AI_BREATH_SOUND/
 ├── models/                       # 모델 구조 및 학습 스크립트(굳이 필요 없는 파일들 날림)
 │   ├── cnn_lstm_model.py
 │   ├── cnn_lstm_model_mk1.py
-│   ├── cnn_lstm_train.py
-│   ├── cnn_train.py
-│   ├── cnn_train_advanced.py
-│   ├── evaluate_mlp.py
-│   ├── mlp_train.py
 │   └── train_model.py            
 │
 ├── notebooks/                    # (비어있음 또는 Jupyter 작업 공간)
@@ -254,3 +249,11 @@ crackle 개약해짐
 개수가 안맞는거같아서 crackle 개수 늘리는 방향으로 진행해야할듯
 
 아 그리고 증강된 .npy augmented 에 안들어가있고 그냥 segments에 들어가있을거같은데 그거 업데이트하기
+
+
+
+✅ 다음 단계 고민
+	1.	다중 threshold grid 탐색 (Wheeze와 Crackle을 동시에 조정해서 F1 최대화)
+	2.	False Positive 샘플 분석: precision 개선을 위한 힌트를 얻을 수 있음
+	3.	모델 앙상블 시도: CNN+LSTM 결과를 다른 모델과 평균하거나 다수결 처리
+	4.	리포트 자동 저장: 결과들을 results/metrics_log.csv 등에 정리
