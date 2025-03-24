@@ -10,12 +10,8 @@ AI_BREATH_SOUND/
 │
 ├── analysis/                     # 분석 스크립트
 │   ├── analyze_confusion.py
-│   ├── analyze_crackle_errors.py
-│   ├── analyze_predictions.py
 │   ├── analyze_thresholds.py
-│   ├── analyze_thresholds_mk1.py
-│   ├── analyze_thresholds_mk2.py
-│   └── tune_crackle_threshold.py
+│   └── analyze_thresholds_mk1.py
 │
 ├── augmentation/                # 데이터 증강
 │   ├── augment_crackle.py
@@ -25,11 +21,15 @@ AI_BREATH_SOUND/
 │   ├── processed/                # 전처리된 중간 데이터(ex.정규화, 필터링된 데이터)
 │   ├── raw_audio/                # 원본 오디오 데이터(ICBHI 2017 등)
 │   ├── segments/                 # 원본 세그먼트 데이터(X.npy, y.npy etc)
-│   └── segments_augmented/       # 증강된 segment 데이터
+│   └── segments_augmented/       # 증강된 segment 데이터들
+│       ├── X_augmented.npy
+│       ├── X_balanced.npy
+│       ├── y_augmented.npy
+│       └── y_balanced.npy
 │
 ├── images/                       # 시각화 결과 이미지 (confusion matrix 등)
 │
-├── models/                       # 모델 구조 및 학습 스크립트
+├── models/                       # 모델 구조 및 학습 스크립트(굳이 필요 없는 파일들 날림)
 │   ├── cnn_lstm_model.py
 │   ├── cnn_lstm_model_mk1.py
 │   ├── cnn_lstm_train.py
@@ -37,22 +37,20 @@ AI_BREATH_SOUND/
 │   ├── cnn_train_advanced.py
 │   ├── evaluate_mlp.py
 │   ├── mlp_train.py
-│   └── train_model.py
+│   └── train_model.py            
 │
 ├── notebooks/                    # (비어있음 또는 Jupyter 작업 공간)
 │
 ├── preprocessing/                # 데이터 전처리 파일들
-│   ├── data_balancing.py
+│   ├── balance_sampling.py
 │   ├── extract_features.py
 │   ├── parse_icbhi_labels.py
 │   ├── preprocess_icbhi.py
-│   ├── split_segments.py
-│   └── visualize_features.py
+│   └── split_segments.py
 │
 ├── results/                      # 예측 결과, 학습결과
 │   ├── train_losses.npy
 │   ├── val_losses.npy
-│   ├── y_pred.npy
 │   ├── y_pred_probs.npy
 │   └── y_true.npy
 │
