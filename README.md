@@ -65,6 +65,21 @@ AI_BREATH_SOUND/
 - 분할된 세그먼트 기반 라벨링 → 'segments_labels.csv'
 - 각 세그먼트에서 MFCC 특징 추출 → 'X.npy', 'Y.npy' / 용량이슈로 깃허브 푸시x
 
+models/cnn_lstm_model.py 에서 모델 학습 한 파일 results/ 에 저장하고
+그거 불러와서
+analysis/analyze_thresholds.py 에서 thresholds 뭘로 하는게 제일 나은지 계속 돌려야함
+
+crackle 증강하니까 엄청 잘나오고
+wheeze는 원래 약했어서
+wheeze까지 증강했는데
+
+wheeze 개쎄지고
+crackle 개약해짐
+
+개수가 안맞는거같아서 crackle 개수 늘리는 방향으로 진행해야할듯
+
+crackle 증강에 wheeze 증강 더하니까 엄청쎄짐! 차근차근 볼것.
+
 
 
 
@@ -235,25 +250,10 @@ Crackle Precision이 계속 너무 낮게 나옴 →
 #### 일단 여기까지 했음
 
 
-models/cnn_lstm_model.py 에서 모델 학습 한 파일 results/ 에 저장하고
-그거 불러와서
-analysis/analyze_thresholds.py 에서 thresholds 뭘로 하는게 제일 나은지 계속 돌려야함
-
-crackle 증강하니까 엄청 잘나오고
-wheeze는 원래 약했어서
-wheeze까지 증강했는데
-
-wheeze 개쎄지고
-crackle 개약해짐
-
-개수가 안맞는거같아서 crackle 개수 늘리는 방향으로 진행해야할듯
-
-아 그리고 증강된 .npy augmented 에 안들어가있고 그냥 segments에 들어가있을거같은데 그거 업데이트하기
 
 
-
-✅ 다음 단계 고민
-	1.	다중 threshold grid 탐색 (Wheeze와 Crackle을 동시에 조정해서 F1 최대화)
-	2.	False Positive 샘플 분석: precision 개선을 위한 힌트를 얻을 수 있음
-	3.	모델 앙상블 시도: CNN+LSTM 결과를 다른 모델과 평균하거나 다수결 처리
-	4.	리포트 자동 저장: 결과들을 results/metrics_log.csv 등에 정리
+## 다음 단계 고민 <br>
+	1.	다중 threshold grid 탐색 (Wheeze와 Crackle을 동시에 조정해서 F1 최대화) <br>
+	2.	False Positive 샘플 분석: precision 개선을 위한 힌트를 얻을 수 있음 <br>
+	3.	모델 앙상블 시도: CNN+LSTM 결과를 다른 모델과 평균하거나 다수결 처리 <br>
+	4.	리포트 자동 저장: 결과들을 results/metrics_log.csv 등에 정리 <br>
