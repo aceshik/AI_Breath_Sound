@@ -110,7 +110,8 @@ crackle 증강한것도 x_balanced니까 고치기~
 > - **Macro F1-score ≥ 0.75**: 전체적인 모델 성능이 실용적일 가능성이 높은 수준  
 > - **Crackle Recall = 1.00**: Crackle을 놓치지 않는 완벽 탐지  
 
-
+---
+# 상세 진행 상황
 
 ## MLP_TRAIN
 
@@ -177,9 +178,7 @@ crackle 증강한것도 x_balanced니까 고치기~
 [20/20] Train Loss: 0.5812 | Val Loss: 0.5732<br>
 </details>
 
-![개선 MLP LOSS 그래프](images/MLP_2_loss.png)
-
-### 개선된 모델 평가, 데이터 불균형으로 모두 정상으로 예측
+### 개선된 모델 평가 진행했으나 데이터 불균형으로 모두 정상으로 예측
 ### 목표: 예측 성능을 최대한 향상시키는 것
 
 ###  실험 #1: Dropout 제거
@@ -243,7 +242,7 @@ Linear → 2 logits (Wheeze, Crackle)
 - BCEWithLogitsLoss 사용 (pos_weight 조정 가능)
 
 ### 학습 설정
-- Optimizer: Adam(lr=)
+- Optimizer: Adam(lr=0.001)
 - Epochs: 20
 - Batch size: 32
 - 손실 기록 및 시각화 저장
@@ -274,6 +273,11 @@ Crackle Precision이 계속 너무 낮게 나옴 →
 | 0.55              | 0.4075   | 0.6548            |
 | 0.60              | 0.3855   | 0.6610            |
 
+.
+.
+.
+
+결국 데이터 증강 해서 어떻게든 해냄
 
 
 #### 일단 여기까지 했음
@@ -312,7 +316,7 @@ Crackle Precision이 계속 너무 낮게 나옴 →
 
 ---
 
-### 5 **Threshold 튜닝 (실험 #6, 최종)**
+### 5 **Threshold 튜닝 + 데이터 전부 증강 (실험 #6)**
 - **Macro F1-score**: 0.82 (+0.17 증가)
 - **Crackle Precision**: 0.75 (+0.25 증가)
 - **Crackle Recall**: 1.00 (유지)
