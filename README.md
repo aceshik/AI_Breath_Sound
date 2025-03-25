@@ -56,7 +56,7 @@ AI_BREATH_SOUND/
 └── requirements.txt              # 패키지 의존성 목록
 ```
 
-### 현재까지 구현
+# 현재까지 구현상황
 
 - ICBHI 2017 데이터셋 구성 분석 및 정리
 - '.wav' 오디오 파일 무음 제거 + 정규화
@@ -65,6 +65,16 @@ AI_BREATH_SOUND/
 - 분할된 세그먼트 기반 라벨링 → 'segments_labels.csv'
 - 각 세그먼트에서 MFCC 특징 추출 → 'X.npy', 'Y.npy' / 용량이슈로 깃허브 푸시x
 
+- 데이터 불균형 조정 (Undersampling + Oversampling) → `X_balanced.npy`, `y_balanced.npy`
+- Crackle 클래스 데이터 증강 (Noise 추가, Time Stretching 등) → `X_balanced.npy`, `y_balanced.npy`
+- Wheeze 클래스 데이터 증강 (Gaussian Noise 추가) → `X_augmented.npy`, `y_augmented.npy`
+- CNN+LSTM 모델 설계 및 학습 코드 작성 → `models/cnn_lstm_model.py`
+- Threshold 최적화 실험 (Precision vs Recall 조정) → 최적 Threshold 설정
+- 최종 모델 평가 및 Classification Report 생성
+
+
+<details>
+<summary> 메모 </summary>
 models/cnn_lstm_model.py 에서 모델 학습 한 파일 results/ 에 저장하고
 그거 불러와서
 analysis/analyze_thresholds.py 에서 thresholds 뭘로 하는게 제일 나은지 계속 돌려야함
@@ -80,6 +90,25 @@ crackle 개약해짐
 
 crackle 증강에 wheeze 증강 더하니까 엄청쎄짐! 차근차근 볼것.
 
+데이터 불균형 잡은거 x_balanced고
+crackle 증강한것도 x_balanced니까 고치기~
+</details>
+
+
+### Classification Report
+
+| Metric         | Wheeze  | Crackle | Micro Avg | Macro Avg | Weighted Avg | Samples Avg |
+|---------------|--------|--------|-----------|-----------|-------------|-------------|
+| **Precision**  | 0.69   | 0.75   | 0.72      | 0.72      | 0.72        | 0.71        |
+| **Recall**     | 0.93   | 1.00   | 0.96      | 0.96      | 0.96        | 0.87        |
+| **F1-score**   | 0.79   | 0.86   | 0.83      | 0.82      | 0.83        | 0.76        |
+| **Support**    | 2982   | 3432   | 6414      | 6414      | 6414        | 6414        |
+
+> **유의미한 결과 기준**  
+> - **Precision ≥ 0.70**: 임상적으로 신뢰할 수 있는 수준  
+> - **Recall ≥ 0.90**: 중요한 의료 신호를 놓치지 않는 수준  
+> - **Macro F1-score ≥ 0.75**: 전체적인 모델 성능이 실용적일 가능성이 높은 수준  
+> - **Crackle Recall = 1.00**: Crackle을 놓치지 않는 완벽 탐지  
 
 
 
@@ -248,6 +277,46 @@ Crackle Precision이 계속 너무 낮게 나옴 →
 
 
 #### 일단 여기까지 했음
+
+# 성능 향상 과정
+
+### 1 **Baseline Model (실험 #1)**
+- **Macro F1-score**: 0.46
+- **Crackle Precision**: 0.27
+- **Crackle Recall**: 0.51
+- ✅ **문제점**: Precision이 매우 낮고, Crackle 탐지가 불안정함.
+
+---
+
+### 2 **데이터 불균형 조정 (실험 #3)**
+- **Macro F1-score**: 0.64 (+0.18 증가)
+- **Crackle Precision**: 0.52 (+0.25 증가)
+- **Crackle Recall**: 0.76 (+0.25 증가)
+- ✅ **개선점**: Crackle이 더 잘 탐지되었으며, Wheeze와 Crackle의 균형이 맞춰짐.
+
+---
+
+### 3 **CNN 구조 최적화 + Dropout 제거 (실험 #4-2)**
+- **Macro F1-score**: 0.64 (변화 없음)
+- **Crackle Precision**: 0.47 (소폭 감소)
+- **Crackle Recall**: 0.90 (+0.14 증가)
+- ✅ **개선점**: Crackle을 더 놓치지 않도록 recall 향상.
+
+---
+
+### 4 **CNN+LSTM 도입 & Epoch 증가 (실험 #5)**
+- **Macro F1-score**: 0.65 (+0.01 증가)
+- **Crackle Precision**: 0.50 (+0.03 증가)
+- **Crackle Recall**: 1.00 (+0.10 증가)
+- ✅ **개선점**: Crackle 탐지가 완벽해짐.
+
+---
+
+### 5 **Threshold 튜닝 (실험 #6, 최종)**
+- **Macro F1-score**: 0.82 (+0.17 증가)
+- **Crackle Precision**: 0.75 (+0.25 증가)
+- **Crackle Recall**: 1.00 (유지)
+- ✅ **최종 결과**: **의료적으로 신뢰할 수 있는 성능에 도달!** 🎉
 
 
 
