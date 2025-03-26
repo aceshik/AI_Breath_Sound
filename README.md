@@ -66,7 +66,7 @@ AI_BREATH_SOUND/
 - 각 세그먼트에서 MFCC 특징 추출 → 'X.npy', 'Y.npy' / 용량이슈로 깃허브 푸시x
 
 - 데이터 불균형 조정 (Undersampling + Oversampling) → `X_balanced.npy`, `y_balanced.npy`
-- Crackle 클래스 데이터 증강 (Noise 추가, Time Stretching 등) → `X_balanced.npy`, `y_balanced.npy`
+- Crackle 클래스 데이터 증강 (Noise 추가, Time Stretching 등) → `X_crackle_augmented.npy`, `y_crackle_augmented.npy`
 - Wheeze 클래스 데이터 증강 (Gaussian Noise 추가) → `X_augmented.npy`, `y_augmented.npy`
 - CNN+LSTM 모델 설계 및 학습 코드 작성 → `models/cnn_lstm_model.py`
 - Threshold 최적화 실험 (Precision vs Recall 조정) → 최적 Threshold 설정
@@ -326,7 +326,7 @@ Crackle Precision이 계속 너무 낮게 나옴 →
 
 
 ## 다음 단계 고민 <br>
-	1.	다중 threshold grid 탐색 (Wheeze와 Crackle을 동시에 조정해서 F1 최대화) <br>
-	2.	False Positive 샘플 분석: precision 개선을 위한 힌트를 얻을 수 있음 <br>
-	3.	모델 앙상블 시도: CNN+LSTM 결과를 다른 모델과 평균하거나 다수결 처리 <br>
-	4.	리포트 자동 저장: 결과들을 results/metrics_log.csv 등에 정리 <br>
+1.	다중 threshold grid 탐색 (Wheeze와 Crackle을 동시에 조정해서 F1 최대화) <br>
+2.	False Positive 샘플 분석: precision 개선을 위한 힌트를 얻을 수 있음 <br>
+3.	모델 앙상블 시도: CNN+LSTM 결과를 다른 모델과 평균하거나 다수결 처리 <br>
+4.	리포트 자동 저장: 결과들을 results/metrics_log.csv 등에 정리 <br>
