@@ -48,8 +48,8 @@ X_new = np.concatenate([X, X_aug], axis=0)
 y_new = np.concatenate([y, y_aug], axis=0)
 
 os.makedirs("data/segments_augmented", exist_ok=True)
-np.save("data/segments_augmented/X_balanced.npy", X_new)
-np.save("data/segments_augmented/y_balanced.npy", y_new)
+np.save("data/segments_augmented/X_crackle_augmented.npy", X_new)
+np.save("data/segments_augmented/y_crackle_augmented.npy", y_new)
 
 print("증강 완료. 저장 경로: data/segments_augmented/")
 print("최종 X shape:", X_new.shape)

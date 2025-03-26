@@ -11,8 +11,8 @@ def augment_with_noise(data, num_augments=1, noise_level=0.05):
     return np.array(augmented)
 
 # 데이터 불러오기
-X = np.load("data/segments_augmented/X_balanced.npy")
-y = np.load("data/segments_augmented/y_balanced.npy")
+X = np.load("data/segments_augmented/X_crackle_augmented.npy")
+y = np.load("data/segments_augmented/y_crackle_augmented.npy")
 
 # Wheeze 클래스 선택
 wheeze_indices = np.where(y[:, 0] == 1)[0]
