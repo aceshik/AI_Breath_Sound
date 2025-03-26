@@ -55,6 +55,16 @@ AI_BREATH_SOUND/
 ├── README.md                     # 프로젝트 설명
 └── requirements.txt              # 패키지 의존성 목록
 ```
+# 업데이트 로그
+
+_3.26_ <br>
+기존 cnn_lstm_model.py 에서 모델 구성과 학습을 전부 진행했으나 <br>
+효율성 있는 실험을 위해 cnn_lstm_model.py 에서는 모델 정의만, 학습은 models/train.py에서 진행하게 바꿈<br>
+모델 평가 위해 evaluate/evaluation.py 생성(모델, 데이터(증강/원본) 선택가능)
+
+
+
+
 
 # 현재까지 구현상황
 
