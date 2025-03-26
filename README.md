@@ -68,8 +68,6 @@ _3.26_ <br>
 
 # 현재까지 구현상황
 
-# 🚀 AI 기반 호흡 분석 시스템 - 현재까지 구현 상황
-
 ## 1. ICBHI 2017 데이터셋 구성 및 전처리
 - **ICBHI 2017 데이터셋 구성 분석 및 정리**
 - **'.wav' 오디오 파일 전처리**
@@ -93,7 +91,7 @@ _3.26_ <br>
 - Time Stretching 적용
 - Mixup 기법 활용 (Crackle 데이터 혼합하여 새로운 샘플 생성)
 
-### Wheeze 데이터 증강 (`X_wheeze_augmented.npy`, `y_wheeze_augmented.npy`)
+### Wheeze 데이터 증강 (`X_all_augmented_advanced.npy`, `y_all_augmented_advanced.npy`)
 - Gaussian Noise 추가
 - Time Masking 적용
 - Pitch Shifting 추가 (높이 미세 조정)
@@ -102,7 +100,7 @@ _3.26_ <br>
 
 ## 4. 모델 설계 및 학습
 - **CNN+LSTM 모델 설계 및 학습 코드 작성** → `models/cnn_lstm_model.py`
-- **학습 데이터 적용 (`X_wheeze_augmented.npy`, `X_crackle_augmented.npy`)**
+- **학습 데이터 적용 (`X_all_augmented_advanced.npy`, `X_all_augmented_advanced.npy`)**
 - **`train.py`에서 모델 학습, Early Stopping 적용**
 - **모델 저장 및 불러오기 코드 작성** (`save_model()`, `load_model()`)
 
