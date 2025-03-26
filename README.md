@@ -68,19 +68,52 @@ _3.26_ <br>
 
 # 현재까지 구현상황
 
-- ICBHI 2017 데이터셋 구성 분석 및 정리
-- '.wav' 오디오 파일 무음 제거 + 정규화
-- '.txt' 라벨 파일 파싱 → 'icbhi_labels.csv'
-- 호흡 주기 단위로 '.wav' 파일 분할 → 'segments/*.wav'
-- 분할된 세그먼트 기반 라벨링 → 'segments_labels.csv'
-- 각 세그먼트에서 MFCC 특징 추출 → 'X.npy', 'Y.npy' / 용량이슈로 깃허브 푸시x
+# 🚀 AI 기반 호흡 분석 시스템 - 현재까지 구현 상황
 
-- 데이터 불균형 조정 (Undersampling + Oversampling) → `X_balanced.npy`, `y_balanced.npy`
-- Crackle 클래스 데이터 증강 (Noise 추가, Time Stretching 등) → `X_crackle_augmented.npy`, `y_crackle_augmented.npy`
-- Wheeze 클래스 데이터 증강 (Gaussian Noise 추가) → `X_augmented.npy`, `y_augmented.npy`
-- CNN+LSTM 모델 설계 및 학습 코드 작성 → `models/cnn_lstm_model.py`
-- Threshold 최적화 실험 (Precision vs Recall 조정) → 최적 Threshold 설정
-- 최종 모델 평가 및 Classification Report 생성
+## 1. ICBHI 2017 데이터셋 구성 및 전처리
+- **ICBHI 2017 데이터셋 구성 분석 및 정리**
+- **'.wav' 오디오 파일 전처리**
+  - 무음 제거 및 정규화 (Normalization) 적용
+- **'.txt' 라벨 파일 파싱** → `icbhi_labels.csv` 생성
+- **호흡 주기 단위로 '.wav' 파일 분할** → `segments/*.wav` 생성
+- **분할된 세그먼트 기반 라벨링 적용** → `segments_labels.csv` 생성
+
+## 2. 특징 추출 및 데이터 저장
+- **각 세그먼트에서 MFCC(Mel-Frequency Cepstral Coefficients) 특징 추출**
+  - 결과 저장: `X.npy`, `Y.npy` (**용량 이슈로 GitHub 푸시 제외**)
+- **데이터 불균형 조정 (Undersampling + Oversampling) 적용**
+  - 결과 저장: `X_balanced.npy`, `y_balanced.npy`
+
+##  3. Crackle & Wheeze 데이터 증강 (Data Augmentation)
+### Crackle 데이터 증강 (`X_crackle_augmented.npy`, `y_crackle_augmented.npy`)
+- Gaussian Noise 추가
+- Time Masking 적용
+- Frequency Masking 적용
+- Pitch Shifting 추가
+- Time Stretching 적용
+- Mixup 기법 활용 (Crackle 데이터 혼합하여 새로운 샘플 생성)
+
+### Wheeze 데이터 증강 (`X_wheeze_augmented.npy`, `y_wheeze_augmented.npy`)
+- Gaussian Noise 추가
+- Time Masking 적용
+- Pitch Shifting 추가 (높이 미세 조정)
+- Reverberation 추가 (잔향 효과)
+- Mixup 기법 활용
+
+## 4. 모델 설계 및 학습
+- **CNN+LSTM 모델 설계 및 학습 코드 작성** → `models/cnn_lstm_model.py`
+- **학습 데이터 적용 (`X_wheeze_augmented.npy`, `X_crackle_augmented.npy`)**
+- **`train.py`에서 모델 학습, Early Stopping 적용**
+- **모델 저장 및 불러오기 코드 작성** (`save_model()`, `load_model()`)
+
+## 5. 평가 및 성능 개선 실험
+- **Threshold 최적화 실험 (Precision vs Recall 조정)**
+  - 최적 Threshold 설정하여 모델 성능 조정
+- **Crackle Precision 향상 실험**
+  - Threshold 조정
+  - 데이터 증강 적용 후 성능 비교
+- **최종 모델 평가 및 Classification Report 생성**
+- **Macro F1-score, Precision, Recall 분석 및 성능 개선 진행 중**
 
 
 <details>
