@@ -3,15 +3,12 @@ import torch
 from sklearn.metrics import classification_report
 from models.cnn_lstm_model import load_model
 
-# threshold 설정
-threshold = 0.7
-
 # 평가할 모델 선택
 model_name = "cnn_lstm" 
 model_name_model = "cnn_lstm_model"
 
 # 평가할 데이터 선택 (True: 증강 데이터, False: 원본 데이터)
-use_augmented_data = False 
+use_augmented_data = False
 
 # 저장된 모델 불러오기
 model = load_model(model_name, f"models/{model_name_model}.pth")
