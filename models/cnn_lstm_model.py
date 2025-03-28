@@ -10,12 +10,14 @@ class CNNLSTM(nn.Module):
             nn.Conv2d(1, 32, kernel_size=3, padding=1),
             nn.ReLU(),
             nn.MaxPool2d((1, 2)),
+            nn.Dropout(0.3),  # Dropout 추가
             nn.Conv2d(32, 64, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d((1, 2))
+            nn.MaxPool2d((1, 2)),
+            nn.Dropout(0.3)   # Dropout 추가
         )
         self.lstm = nn.LSTM(input_size=64, hidden_size=64, batch_first=True, bidirectional=True)
-        self.fc = nn.Linear(64 * 2, 2)  # bidirectional
+        self.fc = nn.Linear(64 * 2, 2)
 
     def forward(self, x):
         x = self.cnn(x)
@@ -24,7 +26,6 @@ class CNNLSTM(nn.Module):
         x, _ = self.lstm(x)
         x = self.fc(x[:, -1])
         return x
-
 # 모델 저장 함수
 def save_model(model, path="models/cnn_lstm_model.pth"):
     """ PyTorch 모델 저장 (폴더 자동 생성 + 디버깅 메시지 추가) """
