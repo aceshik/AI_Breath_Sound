@@ -8,8 +8,8 @@ import copy
 from models.cnn_lstm_model import CNNLSTM, save_model  # 모델 및 저장 함수 불러오기
 
 # 데이터 불러오기 및 전처리
-X = np.load("data/segments_augmented/X_all_augmented_advanced.npy")
-y = np.load("data/segments_augmented/y_all_augmented_advanced.npy")
+X = np.load("data/segments_augmented_refined/X_all_augmented_refined.npy")
+y = np.load("data/segments_augmented_refined/y_all_augmented_refined.npy")
 
 X = (X - X.mean()) / X.std()  # 정규화
 X = torch.tensor(X, dtype=torch.float32)
@@ -46,7 +46,7 @@ else:
 # 손실 함수 및 옵티마이저 설정
 pos_weight = torch.tensor([1.0, 1.0])
 criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 
 # 학습 루프
 EPOCHS = 20
